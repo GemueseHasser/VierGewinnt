@@ -199,10 +199,6 @@ public class WinAlgorithms implements Animation {
                         GameState.NOTHING,
                     });
                     System.out.println("Set GameState[]");
-                    AnimationState.setAnimationState(AnimationState.NULL);
-                    GameState.setState(GameState.PLAYER);
-                    System.out.println("Animation-State: " + AnimationState.getAnimationState().name());
-                    System.out.println("Game-State: " + GameState.getState().name());
                     FieldData.setFallingY(new int[]{
                         52,
                         152,

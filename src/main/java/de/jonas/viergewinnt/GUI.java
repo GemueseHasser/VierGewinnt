@@ -118,6 +118,7 @@ public class GUI {
             public void actionPerformed(final ActionEvent actionEvent) {
                 frame.dispose();
                 GameState.setState(GameState.PLAYER);
+                AnimationState.setAnimationState(AnimationState.NULL);
             }
         });
 
