@@ -41,7 +41,8 @@ public enum GameState {
     //<editor-fold desc="CONSTRUCTORS">
 
     /**
-     * Erstellt ein neuen {@link GameState}. Die übergebene {@link Color Farbe} wird als Farbe, beim setzen der
+     * Erstellt ein neuen und unabhängigen {@link GameState}. Die übergebene {@link Color Farbe} wird als Farbe, beim
+     * setzen der
      * Spiel-Chips durch den {@link ChipPlacer} genutzt.
      *
      * @param color Die {@link Color Farbe}, die als Anzeige-Farbe der gesetzten und ungesetzten Chips bzw Chip-Flächen

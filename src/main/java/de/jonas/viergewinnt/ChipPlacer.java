@@ -8,7 +8,7 @@ import java.util.TimerTask;
  * ist. Wenn dies der Fall ist, kommt die {@link Animation} zum Einsatz, die für das herausfallen der Chips zuständig
  * ist.
  */
-public class ChipPlacer implements Animation {
+public class ChipPlacer {
 
 
     //<editor-fold desc="CONSTANTS">
@@ -22,17 +22,14 @@ public class ChipPlacer implements Animation {
     //<editor-fold desc="CONSTRUCTORS">
 
     /**
-     * Der {@link Timer} des Bot wird ausgeführt und das Spiel wird geprüft.
+     * Erzeugt eine neue Instanz des {@link ChipPlacer ChipPlacer}, worin dann der {@link Timer} des Bots ausgeführt
+     * wird und das Spiel überprüft wird.
      */
     public ChipPlacer() {
         TIMER.scheduleAtFixedRate(new TimerTask() {
             @Override
             @SuppressWarnings("checkstyle:MagicNumber")
             public void run() {
-                if (isFull()) {
-                    AnimationState.setAnimationState(AnimationState.CHIPS_FALL_OUT);
-                    setAnimation(AnimationState.CHIPS_FALL_OUT);
-                }
                 if (GameState.getState() != GameState.COMPUTER) {
                     return;
                 }
@@ -85,97 +82,5 @@ public class ChipPlacer implements Animation {
             return 0;
         }
         return -1;
-    }
-
-    /**
-     * Es wird abgefragt, ob das Spielfeld voll ist.
-     *
-     * @return Ob das Spielfeld voll ist oder nicht
-     */
-    private boolean isFull() {
-        for (int i = 0; i < FieldData.getGameStates().length; i++) {
-            if (FieldData.getGameStates()[i] == GameState.NOTHING) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    @Override
-    @SuppressWarnings("checkstyle:MagicNumber")
-    public void setAnimation(final AnimationState state) {
-        if (AnimationState.getAnimationState() == AnimationState.NULL) {
-            return;
-        }
-        if (state == AnimationState.CHIPS_FALL_OUT) {
-            AnimationState.setAnimationState(AnimationState.CHIPS_FALL_OUT);
-            for (int i = 0; i < FieldData.getGameStates().length; i++) {
-                if (FieldData.getFallingY()[0] > GUI.getHEIGHT() + 20) {
-                    System.out.println("-----------------------");
-                    System.out.println("Animation complete!");
-                    FieldData.setGameStates(new GameState[]{
-                        GameState.NOTHING,
-                        GameState.NOTHING,
-                        GameState.NOTHING,
-                        GameState.NOTHING,
-                        GameState.NOTHING,
-                        GameState.NOTHING,
-                        GameState.NOTHING,
-                        GameState.NOTHING,
-                        GameState.NOTHING,
-                        GameState.NOTHING,
-                        GameState.NOTHING,
-                        GameState.NOTHING,
-                        GameState.NOTHING,
-                        GameState.NOTHING,
-                        GameState.NOTHING,
-                        GameState.NOTHING,
-                        GameState.NOTHING,
-                        GameState.NOTHING,
-                        GameState.NOTHING,
-                        GameState.NOTHING,
-                        GameState.NOTHING,
-                        GameState.NOTHING,
-                        GameState.NOTHING,
-                        GameState.NOTHING,
-                    });
-                    System.out.println("Set GameState[]");
-                    AnimationState.setAnimationState(AnimationState.NULL);
-                    GameState.setState(GameState.PLAYER);
-                    System.out.println("Animation-State: " + AnimationState.getAnimationState().name());
-                    System.out.println("Game-State: " + GameState.getState().name());
-                    FieldData.setFallingY(new int[]{
-                        52,
-                        152,
-                        253,
-                        352,
-                        52,
-                        152,
-                        253,
-                        352,
-                        52,
-                        152,
-                        253,
-                        352,
-                        52,
-                        152,
-                        253,
-                        352,
-                        52,
-                        152,
-                        253,
-                        352,
-                        52,
-                        152,
-                        252,
-                        353,
-                    });
-                    System.out.println("Set Falling Y coordinate to 'DEFAULT'");
-                    System.out.println("-----------------------");
-                    return;
-                }
-                FieldData.getFallingY()[i] += 15;
-            }
-        }
     }
 }
