@@ -8,9 +8,10 @@ import lombok.Setter;
  */
 public class FieldData {
 
+    //<editor-fold desc="CONSTANTS">
     /**
-     * Die X-Positionen aller Chip-Felder werden gespeichert, um sie von hier beim zeichnen dieser Felder aus der
-     * {@link Draw Zeichnen} Klasse auslesen zu können.
+     * Die X-Positionen aller Chip-Felder werden gespeichert, um sie von hier beim zeichnen dieser Felder aus der {@link
+     * Draw Zeichnen} Klasse auslesen zu können.
      */
     @Getter
     private static final int[] X = {
@@ -41,8 +42,8 @@ public class FieldData {
     };
 
     /**
-     * Die Y-Positionen aller Chip-Felder werden gespeichert, um sie von hier beim zeichnen dieser Felder aus der
-     * {@link Draw Zeichnen} Klasse auslesen zu können.
+     * Die Y-Positionen aller Chip-Felder werden gespeichert, um sie von hier beim zeichnen dieser Felder aus der {@link
+     * Draw Zeichnen} Klasse auslesen zu können.
      */
     @Getter
     private static final int[] Y = {
@@ -71,10 +72,11 @@ public class FieldData {
         252,
         353,
     };
+    //</editor-fold>
 
     /**
-     * Die Y-Positionen aller Chip-Felder werden gespeichert, um sie durch die {@link Animation} beim herausfallen
-     * der Chips stetig neu zu berechnen und die Felder durch die {@link Draw Zeichnen} Klasse neu zeichnen zu lassen.
+     * Die Y-Positionen aller Chip-Felder werden gespeichert, um sie durch die {@link Animation} beim herausfallen der
+     * Chips stetig neu zu berechnen und die Felder durch die {@link Draw Zeichnen} Klasse neu zeichnen zu lassen.
      */
     @Getter
     @Setter

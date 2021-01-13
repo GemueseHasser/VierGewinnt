@@ -11,6 +11,7 @@ import java.awt.Color;
  */
 public enum GameState {
 
+    //<editor-fold desc="VALUES">
     /** Der Spiel-Status eines Spielers. */
     PLAYER(
         Color.YELLOW
@@ -23,15 +24,21 @@ public enum GameState {
     NOTHING(
         Color.WHITE
     );
+    //</editor-fold>
 
     /** {@link GameState} des {@link GameState Spiel-Status}. */
     @Getter
     @Setter
     private static GameState state;
 
+    //<editor-fold desc="LOCAL-FIELDS">
     /** Farbe des des {@link GameState Spiel-Status}. */
     @Getter
     private final Color color;
+    //</editor-fold>
+
+
+    //<editor-fold desc="CONSTRUCTORS">
 
     /**
      * Erstellt ein neuen {@link GameState}. Die übergebene {@link Color Farbe} wird als Farbe, beim setzen der
@@ -45,5 +52,5 @@ public enum GameState {
     ) {
         this.color = color;
     }
-
+    //</editor-fold>
 }

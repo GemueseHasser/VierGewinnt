@@ -10,10 +10,16 @@ import java.util.TimerTask;
  */
 public class ChipPlacer implements Animation {
 
+
+    //<editor-fold desc="CONSTANTS">
     /** In welchen Abständen (in Milli-Sekunden) der Bot das Spiel überprüft und setzt. */
     private static final int TIMER_DELAY = 100;
     /** {@link Timer}, der in regelmäßigem abstand {@value TIMER_DELAY} den Bot laufen lässt. */
     private static final Timer TIMER = new Timer();
+    //</editor-fold>
+
+
+    //<editor-fold desc="CONSTRUCTORS">
 
     /**
      * Der {@link Timer} des Bot wird ausgeführt und das Spiel wird geprüft.
@@ -39,6 +45,8 @@ public class ChipPlacer implements Animation {
             }
         }, 0, TIMER_DELAY);
     }
+    //</editor-fold>
+
 
     /**
      * Ein Chip, von dem Spieler der gerade am Zug ist, wird an den ersten freien Punkt von unten, in eine angeklickte

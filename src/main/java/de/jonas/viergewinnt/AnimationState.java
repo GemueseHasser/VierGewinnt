@@ -9,6 +9,7 @@ import lombok.Setter;
  */
 public enum AnimationState {
 
+    //<editor-fold desc="VALUES">
     /**
      * Der {@link AnimationState} für die {@link Animation}, wenn das Spiel vorbei ist und alle Chips aus dem Spielfeld
      * herausfallen.
@@ -20,6 +21,7 @@ public enum AnimationState {
      * nur noch dieser "leere" {@link AnimationState} aktiv.
      */
     NULL;
+    //</editor-fold>
 
     /** {@link AnimationState} um die einzelnen Konstanten des {@link AnimationState} zu setzen oder zu bekommen. */
     @Getter
