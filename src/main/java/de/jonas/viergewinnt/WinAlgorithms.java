@@ -12,10 +12,16 @@ import java.util.TimerTask;
  */
 public class WinAlgorithms implements Animation {
 
+
+    //<editor-fold desc="CONSTANTS">
     /** Der {@link Timer}, der in einem regelmäßigen Abstand, das Spiel auf einen Gewinn überprüft. */
     private static final Timer TIMER = new Timer();
     /** Der zeitliche Abstand in Millisekunden, in dem der {@link Timer} das Spiel auf einen Gewinn überprüft. */
     private static final int TIMER_DELAY = 100;
+    //</editor-fold>
+
+
+    //<editor-fold desc="CONSTRUCTORS">
 
     /**
      * Es wird eine neue und unabhänige Instanz des {@link WinAlgorithms} erstellt, worin der {@link Timer} der das
@@ -27,7 +33,8 @@ public class WinAlgorithms implements Animation {
             public void run() {
                 if (isFull()) {
                     AnimationState.setAnimationState(AnimationState.CHIPS_FALL_OUT);
-                    setAnimation(AnimationState.CHIPS_FALL_OUT);
+                    setAnimation(AnimationState.CHIPS_FALL_OUT, GameState.NOTHING);
+                    new GUI(2);
                 }
                 if (GameState.getState() == GameState.NOTHING) {
                     return;
@@ -36,20 +43,21 @@ public class WinAlgorithms implements Animation {
                     || isHoch(GameState.PLAYER)
                     || isSchreag(GameState.PLAYER)
                 ) {
-                    GameState.setState(GameState.NOTHING);
-                    System.out.println("PLAYER WIN");
+                    AnimationState.setAnimationState(AnimationState.CHIPS_FALL_OUT);
+                    setAnimation(AnimationState.CHIPS_FALL_OUT, GameState.PLAYER);
                 }
 
                 if (isQuer(GameState.COMPUTER)
                     || isHoch(GameState.COMPUTER)
                     || isSchreag(GameState.COMPUTER)
                 ) {
-                    GameState.setState(GameState.NOTHING);
-                    System.out.println("COMPUTER WIN");
+                    AnimationState.setAnimationState(AnimationState.CHIPS_FALL_OUT);
+                    setAnimation(AnimationState.CHIPS_FALL_OUT, GameState.COMPUTER);
                 }
             }
         }, 0, TIMER_DELAY);
     }
+    //</editor-fold>
 
     /**
      * Es wird überprüft, ob in dem Spiel vier aneinander-liegende Chips mit demselben {@link GameState GameState} in
@@ -154,11 +162,11 @@ public class WinAlgorithms implements Animation {
 
     @Override
     @SuppressWarnings("checkstyle:MagicNumber")
-    public void setAnimation(final AnimationState state) {
+    public void setAnimation(final AnimationState animationState, final GameState gameState) {
         if (AnimationState.getAnimationState() == AnimationState.NULL) {
             return;
         }
-        if (state == AnimationState.CHIPS_FALL_OUT) {
+        if (animationState == AnimationState.CHIPS_FALL_OUT) {
             AnimationState.setAnimationState(AnimationState.CHIPS_FALL_OUT);
             for (int i = 0; i < FieldData.getGameStates().length; i++) {
                 if (FieldData.getFallingY()[0] > GUI.getHEIGHT() + 20) {
@@ -223,6 +231,10 @@ public class WinAlgorithms implements Animation {
                     });
                     System.out.println("Set Falling Y coordinate to 'DEFAULT'");
                     System.out.println("-----------------------");
+                    if (gameState == GameState.NOTHING) {
+                        return;
+                    }
+                    new GUI(gameState);
                     return;
                 }
                 FieldData.getFallingY()[i] += 15;

@@ -15,7 +15,7 @@ public class ActionHandler implements ActionListener {
         if (AnimationState.getAnimationState() != AnimationState.NULL) {
             return;
         }
-        if (GameState.getState() == GameState.COMPUTER) {
+        if (GameState.getState() != GameState.PLAYER) {
             return;
         }
         for (int i = 0; i < GUI.getBUTTONS().length; i++) {

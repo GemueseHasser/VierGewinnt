@@ -8,8 +8,9 @@ public interface Animation {
     /**
      * Einzelne Animationen werden abhängig vom {@link AnimationState} gesetzt.
      *
-     * @param state der {@link AnimationState}
+     * @param animationState der {@link AnimationState}
+     * @param gameState  der {@link GameState}
      */
-    void setAnimation(AnimationState state);
+    void setAnimation(AnimationState animationState, GameState gameState);
 
 }

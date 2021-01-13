@@ -19,7 +19,7 @@ public class VierGewinnt {
     public static void main(final String[] args) {
         GameState.setState(GameState.PLAYER);
         AnimationState.setAnimationState(AnimationState.NULL);
-        new GUI();
+        new GUI(0);
         new ChipPlacer();
         new WinAlgorithms();
     }

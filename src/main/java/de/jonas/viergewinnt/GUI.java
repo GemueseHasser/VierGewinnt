@@ -4,9 +4,15 @@ import lombok.Getter;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
- * Das Graphical-User-Interface, auf dem das Spiel, für den Nutzer grafisch dargestellt wird.
+ * Das Graphical-User-Interface, auf dem das Spiel und dessen Unter-Fenster, für den Nutzer grafisch dargestellt wird.
  */
 public class GUI {
 
@@ -22,16 +28,36 @@ public class GUI {
     /** Die buttons, die im Hintergrund alles regeln xD. */
     @Getter
     private static final JButton[] BUTTONS = new JButton[BUTTON_AMOUNT];
+    /** Die Schriftart, die in allen Fenstern genutzt wird. */
+    private static final Font DEFAULT_FONT = new Font("Arial", Font.BOLD, 19);
     //</editor-fold>
 
 
     //<editor-fold desc="CONSTRUCTORS">
 
     /**
-     * Erzeugt ein neues und unabhängiges {@link GUI} Graphical-User-Interface.
+     * Erzeugt eine neue und unabhängige Instanz des {@link GUI Graphical-User-Interface}.
+     * @param state Die Art, welches GUI geöffnet werden soll. Entweder das normale Spiel (0) oder das Fenster für
+     *              unentschieden (1)
      */
-    public GUI() {
-        openFrame();
+    public GUI(final int state) {
+        if (state == 0) {
+            openGameFrame();
+        } else if (state == 1) {
+            createFrameOnTop("Es ist unentschieden!");
+        }
+    }
+
+    /**
+     * Erzeugt eine neue und unabhängige Instanz des {@link GUI Graphical-User-Interface}.
+     * @param state Gibt den Spieler an, der gewonnen hat
+     */
+    public GUI(final GameState state) {
+        if (state == GameState.COMPUTER) {
+            createFrameOnTop("Der Computer hat gewonnen!");
+        } else {
+            createFrameOnTop("Du hast gewonnen!");
+        }
     }
     //</editor-fold>
 
@@ -39,7 +65,7 @@ public class GUI {
     /**
      * Öffnet das Haupt-Fenster, in dem das Spiel dargestellt wird.
      */
-    private void openFrame() {
+    private void openGameFrame() {
         final JFrame frame = new JFrame("Vier Gewinnt");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBounds(0, 0, WIDTH, HEIGHT);
@@ -63,6 +89,54 @@ public class GUI {
         placeButtons();
 
         frame.add(draw);
+        frame.setVisible(true);
+    }
+
+    @SuppressWarnings("checkstyle:MagicNumber")
+    private void createFrameOnTop(final String text) {
+        final JFrame frame = new JFrame(text);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.setBounds(0, 0, 300, 250);
+        frame.setLocationRelativeTo(null);
+        frame.setLayout(null);
+        frame.setResizable(false);
+        frame.setBackground(Color.GRAY);
+        frame.setAlwaysOnTop(true);
+        frame.setUndecorated(true);
+
+        JLabel label = new JLabel(text, JLabel.CENTER);
+        label.setFont(DEFAULT_FONT);
+        label.setBounds(-5, 30, frame.getWidth(), 50);
+
+        JButton newGame = new JButton("Neues Spiel");
+        newGame.setBounds(50, 100, 200, 40);
+        newGame.setOpaque(true);
+        newGame.setBackground(Color.DARK_GRAY);
+        newGame.setForeground(Color.WHITE);
+        newGame.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent actionEvent) {
+                frame.dispose();
+                GameState.setState(GameState.PLAYER);
+            }
+        });
+
+        JButton stop = new JButton("Beenden");
+        stop.setBounds(50, 160, 200, 40);
+        stop.setOpaque(true);
+        stop.setBackground(Color.DARK_GRAY);
+        stop.setForeground(Color.WHITE);
+        stop.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent actionEvent) {
+                System.exit(0);
+            }
+        });
+
+        frame.add(label);
+        frame.add(newGame);
+        frame.add(stop);
+        frame.getContentPane().setBackground(Color.LIGHT_GRAY);
         frame.setVisible(true);
     }
 
